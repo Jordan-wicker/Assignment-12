@@ -16,26 +16,23 @@ var tile = {
     background: "black",
     color: "blue"
 }
+var flipColor = function(obj){
 
-var flipColor = function (tileChange){
-   if (tileChange.color === 'blue') {
+   if(obj.color === 'blue'){
 
-      tileChange.color = 'red'
-
-   } else {
-
-      tileChange.color = 'blue'
-
+      obj.color = 'red';
+   }
+   else if (obj.color === 'red'){
+      obj.color = 'blue'
    }
 
-   return tileChange;
+return obj
 
 }
 
-
-//var tile2 = flipColor(tile)
-//console.assert(tile2.color === "red")
-//console.assert(flipColor(tile2).color === "blue")
+var tileTwo = flipColor(tile)
+console.assert(tileTwo.color === "red")
+console.assert(flipColor(tileTwo).color === "blue")
 
 
 // Part 1
@@ -49,19 +46,22 @@ var customers = [
     { first: 'Dave', last: 'Jones'},
     { first: 'Jack', last: 'White'}
 ]
+var getFullNames = function(custoArr){
+	var arrOfNames = []
+    var fullName = ''
 
-var getFullNames = function (arrOfObjects){
+	for(var i = 0; i < custoArr.length; i++){
 
-   var newName = []
 
-   for (var i = 0; i < arrOfObjects.length; i++){
-      custList.push(arrOfObjects[i].first + ' ' + arrOfObjects[i].last)
-   }
 
-   return newName
+     arrOfNames.push(fullName= custoArr[i].first + ' '+ custoArr[i].last)
+
+    }
+    return arrOfNames
+
 }
-//console.assert(getFullNames(customers)[1] === "John Smith")
-//console.assert(getFullNames(customers)[3] === "Jack White")
+console.assert(getFullNames(customers)[1] === "John Smith")
+console.assert(getFullNames(customers)[3] === "Jack White")
 // Part 2
 // Write a function that accepts an an array of strings
 // with first and last names and returns an array of objects
@@ -76,24 +76,21 @@ var realNinjas = [
   'Michelle Yeoh',
   'Jet Li'
 ]
+var createListOfObjects = function(arrOfStr){
+   var emptyArr = [];
 
-var createListOfObjects = function (arrOfStr){
-   var arrOfObjects = []
+	var newArr = [];
+   for(var i = 0; i < arrOfStr.length; i++){
+          var emptyObj = {};
+       var emptyArr = arrOfStr[i].split(' ')
 
-   for (var i = 0; i < strAry.length; i++){
+      emptyObj.firstName = emptyArr[0];
+       emptyObj.lastName = emptyArr[1];
 
-         var nameInput = { firstName: '', lastName: ''}
-         var nameSpliter = []
 
-            nameSplit = arrOfStr[i].split(' ')
-
-            nameInput.firstName = nameSplit[0]
-
-            nameInput.lastName = nameSplit[1]
-
-         objAry.push(nameInput)
+           newArr.push(emptyObj)
    }
-   return arrOfObjects
+    return newArr
 }
 
 var ninjaListOfObjects = createListOfObjects(realNinjas)
@@ -111,54 +108,51 @@ console.assert(ninjaListOfObjects[3].firstName === "Billy")
 // The dog object should have attributes like legs, weight and color. The dog *constructor*
 // (which is, almost, what this is) should take a name input, and the dog should receive the
 // assigned name.
-
+var generateDog = function(dogNm){
 var newDog = {};
-    generateDog.name = Pup
-    generateDog.legs = 4
-    generateDog.weight = "60lbs"
-    generateDog.color = 'yellow'
+    newDog.name = dogNm
+    newDog.legs = 4
+    newDog.weight = "100lbs"
+    newDog.color = 'black'
+    newDog.speak = function(spkStr){
+      var spkStrSplit = spkStr.split(' ');
+      var rrrStr = "";
+      var rrrArr = [];
 
-    generateDog.speak = function(dogStr){
+      for(var i = 0; i < spkStrSplit.length; i++){
 
-      var dogStrSpliter = dogStr.split(' ');
+        var wordSplit = spkStrSplit[i].split('');
+        wordSplit[0] = 'r'
 
-      var newStr = "";
+        var rWord = wordSplit.join('')
 
-      var newArr = [];
-
-      for(var i = 0; i < dogStrSpliter.length; i++){
-
-            var wordSplit = dogStrSpliter[i].split('');
-            wordSplit[0] = 'r'
-
-        var word = wordSplit.join('')
-
-        newArr.push(word);
+        rrrArr.push(rWord);
       }
 
-      var newStr = newArr.join(" ")
-      return newStr;
+      var rrrStr = rrrArr.join(" ")
+      return rrrStr;
     }
 
-    return generateDog;
+    return newDog;
 }
 
 var dog = generateDog('rex')
+
 
 console.assert(dog.legs === 4)
 console.assert(dog.name === 'rex')
 
 var dog = generateDog('carl')
-//console.assert(dog.name === 'carl')
+console.assert(dog.name === 'carl')
 
 
 // Give the dog a method called .speak(). speak() should receive a string as input and
-//return a new version of that string where the first letter of every word is replaced
+// return a new version of that string where the first letter of every word is replaced
 // with the letter 'r'.
 
-
-//*******???console.assert(dog.speak('i love you') === 'r rove rou')
-//*******???console.assert(dog.speak('so hungry') === 'ro rungry')
+console.assert(dog.speak('hello hommie'))
+console.assert(dog.speak('i love you') === 'r rove rou')
+console.assert(dog.speak('so hungry') === 'ro rungry')
 
 
 // Part 4
@@ -169,20 +163,26 @@ var dog = generateDog('carl')
 // e.g:
 // pluck(stooges, 'name') should yield the array, ['moe','larry','curly']
 
+
+
+var pluck = function(arrOfObj, prop){
+
+   var arrOfProp = [];
+
+   for(var i = 0; i < arrOfObj.length; i++){
+      arrOfProp.push(arrOfObj[i][prop])
+   }
+
+
+      return arrOfProp
+}
+
+
 var stooges = [
    {name: 'moe', age: 40, hairStyle: "bowl cut" },
    {name: 'larry', age: 50, hairStyle: "balding"},
    {name: 'curly', age: 60, hairStyle: "buzzed"}
 ]
-   //input: array of objects, string
-   var pluck = function(arrOfObjects, attributeStr){
-      for (var i = 0; i < arrOfObjects.length; i += 1){
-         console.log(arrOfObjects[i])
-
-      }
-
-      //output: array of values
-   }
 
 console.assert( pluck(stooges, 'name')[0] === 'moe' )
 console.assert( pluck(stooges, 'hairStyle')[2] === "buzzed" )
@@ -201,7 +201,42 @@ var sampleText = "I'm tired of trying to find happiness through lies and self-me
 I need a fake passport, preferably to France. I like the way they think. Oh, COME ON! YOU'RE the Chiclet! Not me. Caw ca caw, caw ca caw, caw ca caw! It's ok. You be with Yam. So did you see the new Poof? His name's Gary and we don't need anymore lawsuits. If this were a Lifetime Moment of Truth movie, this would be our act break. But it wasn't. Michael, look, this has got to stop. I mean, flattered? Yes. Interested? Not tonight. \
 I'm foolish and I'm funny and I'm needy. Am I needy? Are you sure I'm not needy? 'Cause I feel needy sometimes. Obviously this blue part here is the land. \
 Let's see some bananas and nuts! This was a big get for God. They don't allow you to have bees in here. I want to cry so bad, but I don't think I can spare the moisture. No, Pop-pop does not get a treat, I just brought you a [bleep]ing pizza. It walked on my pillow! I'll buy you a hundred George Michaels that you can teach to drive! A group of British builders operating outside the O.C."
+// input string
+var getCounts = function(str){
+   var newObj = {};
+   var wordList = str.split(" ")
 
+   for(var i = 0; i < wordList.length; i++){
+      var word = wordList[i].toLowerCase();
+
+      word = (removePunc(word))
+      if(typeof newObj[word] === 'undefined'){
+
+         newObj[word] = 1;
+
+      }else{newObj[word] = newObj[word] + 1 }
+   }
+
+      return newObj
+}
+// PART 2 FUNCTION
+var removePunc = function(str){
+
+   var strSeperated = str.split("")
+   var puncDumpStr = []
+   var noMorePuncArr = []
+   var noMorePuncStr = ""
+   for(var i = 0; i < strSeperated.length; i++){
+
+      if(strSeperated[i] === "." || strSeperated[i] === "?" || strSeperated[i] === "!" || strSeperated[i] === ","){
+
+         puncDumpStr.push(strSeperated[i])
+      }else{noMorePuncArr.push(strSeperated[i])}
+      noMorePuncStr = noMorePuncArr.join("")
+   }
+
+   return noMorePuncStr
+}
 var wordFrequencyObject = getCounts(sampleText)
 
 
@@ -210,8 +245,8 @@ console.assert( wordFrequencyObject.you === 9 )
 
 // EXPLORER MODE - PART 2
 //-----------------------------
- console.assert(wordFrequencyObject.needy === 4)
- console.assert(wordFrequencyObject.caw === 6)
+console.assert(wordFrequencyObject.needy === 4)
+console.assert(wordFrequencyObject.caw === 6)
 
 
 // Part 6
@@ -219,7 +254,18 @@ console.assert( wordFrequencyObject.you === 9 )
 // Write a function called reverseObject(). It should take as input an object,
 // and it should output a new object where the keys and values are reversed.
 
+var reverseObject = function(obj){
+      var newObj = {}
 
+      for(var prop in obj){
+         var newProp = obj[prop]
+         newObj[newProp] = prop
+
+      }
+
+
+   return newObj
+}
 var object = {
     occupants: 4,
     apartment_no: "2b",
@@ -238,6 +284,27 @@ console.assert( reversed['2b'] === 'apartment_no' )
 // objects, and it should output an array of objects with the keys and values
 // reversed.
 
+
+var reverseAll = function(arrOfObj){
+
+var arrFlipd = []
+   for(var i = 0; i < arrOfObj.length; i++){
+      var objToFlip = arrOfObj[i]
+      var flipdObj = {};
+      for(prop in objToFlip){
+
+         var newProp = objToFlip[prop]
+
+         flipdObj[newProp] = prop
+
+      }
+      arrFlipd.push(flipdObj)
+
+   }
+
+   return arrFlipd
+}
+
 var users = [
    { willis: 'president@gmail.com',hobby: 'basketball' , favoriteFood: "pate" },
    { benzo: 'bonjourben@yahoo.com', hobby:'dealmaking' , favoriteFood: "steak" },
@@ -245,13 +312,12 @@ var users = [
 ]
 // should yield: [{'president@gmail.com': 'obama',basketball: 'hobby'}, ....]
 
-var flippedUsers = reverseObjects(users)
+var flippedUsers = reverseAll(users)
 
 console.assert( flippedUsers[0]['president@gmail.com'] === 'willis' )
 console.assert( flippedUsers[1]['bonjourben@yahoo.com'] === 'benzo' )
 console.assert( flippedUsers[1].dealmaking === 'hobby' )
 console.assert( flippedUsers[2].croissant === 'favoriteFood' )
-
 
 // Part 9
 
@@ -261,23 +327,23 @@ console.assert( flippedUsers[2].croissant === 'favoriteFood' )
 // return value. Use the example in the console.assert to understand
 // exactly how you should write the method. Including the period!
 
-var politeObject = {
-    name: "Frank"
-}
-
-var tellEm = function() {
-    return "I know what is going on here"
-}
-
-var promoteJS = function(){
-   return "JavaScript is quite amazing"
-}
-
-var personalizedResult = politeObject.personalize(tellEm)
-var anotherPersonalNote = politeObject.personalize(promoteJS)
-
-console.assert( personalizedResult === "Hi, my name is Frank, and the result is I know what is going on here." )
-console.assert( anotherPersonalNote === "Hi, my name is Frank, and the result is JavaScript is quite amazing." )
+// var politeObject = {
+//     name: "Frank"
+// }
+//
+// var tellEm = function() {
+//     return "I know what is going on here"
+// }
+//
+// var promoteJS = function(){
+//    return "JavaScript is quite amazing"
+// }
+//
+// var personalizedResult = politeObject.personalize(tellEm)
+// var anotherPersonalNote = politeObject.personalize(promoteJS)
+//
+// console.assert( personalizedResult === "Hi, my name is Frank, and the result is I know what is going on here." )
+// console.assert( anotherPersonalNote === "Hi, my name is Frank, and the result is JavaScript is quite amazing." )
 
  //  you may need to use the special `this` keyword for this problem.
 
@@ -288,29 +354,29 @@ console.assert( anotherPersonalNote === "Hi, my name is Frank, and the result is
  // a properties object. It should return a new list containing only those
  // objects that meet the key-value conditions in the properties object.
 
- var plays = [
-     { title: "Cymbeline", author: "Shakespeare", year: 1623 },
-     { title: "The Tempest", author: "Shakespeare", year: 1623 },
-     { title: "Hamlet", author: "Shakespeare", year: 1603 },
-     { title: "A Midsummer Night's Dream", author: "Shakespeare", year: 1600 },
-     { title: "Macbeth", author: "Shakespeare", year: 1620 },
-     { title: "Death of a Salesman", author: "Arthur Miller", year: 1949 },
-     { title: "Two Blind Mice", author: "Samuel and Bella Spewack", year: 1949 }
- ]
-
- var sh8sprQuery = where(plays, {author: "Shakespeare"})
- console.assert( sh8sprQuery instanceof Array )
- console.assert( sh8sprQuery.length === 5 )
- console.assert( sh8sprQuery[0]['title'] === "Cymbeline" )
-
-
- var sh8sprQuery2 = where(plays, {author: "Shakespeare", year: 1611})
- console.assert( sh8sprQuery2.length === 0 )
-
-
- var sh8sprQuery3 = where(plays, {author: "Shakespeare", year: 1623})
- console.assert( sh8sprQuery3.length === 2 )
-
-
- var midCentPlays = where(plays, {year: 1949})
- console.assert( midCentPlays.length === 2 )
+ // var plays = [
+ //     { title: "Cymbeline", author: "Shakespeare", year: 1623 },
+ //     { title: "The Tempest", author: "Shakespeare", year: 1623 },
+ //     { title: "Hamlet", author: "Shakespeare", year: 1603 },
+ //     { title: "A Midsummer Night's Dream", author: "Shakespeare", year: 1600 },
+ //     { title: "Macbeth", author: "Shakespeare", year: 1620 },
+ //     { title: "Death of a Salesman", author: "Arthur Miller", year: 1949 },
+ //     { title: "Two Blind Mice", author: "Samuel and Bella Spewack", year: 1949 }
+ // ]
+ //
+ // var sh8sprQuery = where(plays, {author: "Shakespeare"})
+ // console.assert( sh8sprQuery instanceof Array )
+ // console.assert( sh8sprQuery.length === 5 )
+ // console.assert( sh8sprQuery[0]['title'] === "Cymbeline" )
+ //
+ //
+ // var sh8sprQuery2 = where(plays, {author: "Shakespeare", year: 1611})
+ // console.assert( sh8sprQuery2.length === 0 )
+ //
+ //
+ // var sh8sprQuery3 = where(plays, {author: "Shakespeare", year: 1623})
+ // console.assert( sh8sprQuery3.length === 2 )
+ //
+ //
+ // var midCentPlays = where(plays, {year: 1949})
+ // console.assert( midCentPlays.length === 2 )
